@@ -875,7 +875,7 @@ class HistogramFunction:
             result = self.nominal_histo.copy()
             for p in self.parameters:
                 delta = par_values[p] * self.factors[p]
-                if abs(delta) > 1:
+                if abs(delta) > 0.001:
                     if delta > 0: h = self.nominal_histo.add(-1.0, self.syst_histos[p][0].strip_uncertainties())
                     else: h = self.nominal_histo.add(-1.0, self.syst_histos[p][1].strip_uncertainties())
                     result = result.add(-abs(delta), h)

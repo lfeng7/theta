@@ -24,7 +24,7 @@ void cubiclinear_histomorph::add_morph_terms(HT & t, const ParValues & values) c
         const double delta = values.get_unchecked(vid[isys]) * parameter_factors[isys];
         if(delta==0.0) continue;
         //linear extrapolation beyond 1 sigma:
-        if(fabs(delta) > 1){
+        if(fabs(delta) > 0.001){
             const Histogram1D & t_sys = delta > 0 ? hplus_diff[isys] : hminus_diff[isys];
             t.add_with_coeff(fabs(delta), t_sys);
         }
@@ -108,7 +108,7 @@ void cubiclinear_histomorph::eval_and_add_derivatives(theta::Histogram1DWithUnce
         const double delta = values.get_unchecked(vid[isys]) * parameter_factors[isys];
         if(delta==0.0) continue;
         //linear extrapolation beyond 1 sigma:
-        if(fabs(delta) > 1){
+        if(fabs(delta) > 0.001){
             const Histogram1D & t_sys = delta > 0 ? hplus_diff[isys] : hminus_diff[isys];
             result.add_with_coeff(fabs(delta), t_sys);
         }
@@ -137,7 +137,7 @@ void cubiclinear_histomorph::eval_and_add_derivatives(theta::Histogram1DWithUnce
     for (size_t isys = 0; isys < n_sys; isys++) {
         const double delta = values.get_unchecked(vid[isys]) * parameter_factors[isys];
         const double sd = delta < 0? -1:1;
-        if(fabs(delta) > 1){
+        if(fabs(delta) > 0.001){
             const Histogram1D & t_sys = delta > 0 ? hplus_diff[isys] : hminus_diff[isys];
             //derivatives[vid[isys]].add_with_coeff(sd * coeff, t_sys);
             add_with_coeff_filtered(derivatives[vid[isys]].get_data(), sd * coeff, t_sys.get_data(), zero_truncated);
@@ -170,7 +170,7 @@ void cubiclinear_histomorph::eval_and_add_derivatives(theta::Histogram1D & resul
         const double delta = values.get_unchecked(vid[isys]) * parameter_factors[isys];
         if(delta==0.0) continue;
         //linear extrapolation beyond 1 sigma:
-        if(fabs(delta) > 1){
+        if(fabs(delta) > 0.001){
             const Histogram1D & t_sys = delta > 0 ? hplus_diff[isys] : hminus_diff[isys];
             result.add_with_coeff(fabs(delta), t_sys);
         }
@@ -198,7 +198,7 @@ void cubiclinear_histomorph::eval_and_add_derivatives(theta::Histogram1D & resul
     for (size_t isys = 0; isys < n_sys; isys++) {
         const double delta = values.get_unchecked(vid[isys]) * parameter_factors[isys];
         const double sd = delta < 0? -1:1;
-        if(fabs(delta) > 1){
+        if(fabs(delta) > 0.001){
             const Histogram1D & t_sys = delta > 0 ? hplus_diff[isys] : hminus_diff[isys];
             //derivatives[vid[isys]].add_with_coeff(sd * f * coeff, t_sys);
             add_with_coeff_filtered(derivatives[vid[isys]].get_data(), sd * coeff, t_sys.get_data(), zero_truncated);
